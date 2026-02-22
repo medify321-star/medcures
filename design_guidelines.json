@@ -1,0 +1,159 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "Medcures",
+      "tone": "Professional, Medical, Soft, Trustworthy",
+      "theme_mode": "dark",
+      "visual_style": "Dark Medical Editorial"
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Joan, serif",
+        "body": "Manrope, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "imports": [
+        "https://fonts.googleapis.com/css2?family=Joan&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      ],
+      "scale": {
+        "h1": "text-4xl md:text-6xl font-normal tracking-tight",
+        "h2": "text-3xl md:text-4xl font-normal tracking-tight",
+        "h3": "text-2xl md:text-3xl font-normal",
+        "body_large": "text-lg md:text-xl leading-relaxed",
+        "body_base": "text-base leading-relaxed",
+        "caption": "text-sm text-muted-foreground"
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": {
+          "default": "#0B0F17",
+          "paper": "#151A25",
+          "subtle": "#1E2433"
+        },
+        "primary": {
+          "default": "#38BDF8",
+          "foreground": "#0F172A",
+          "hover": "#0EA5E9"
+        },
+        "secondary": {
+          "default": "#2DD4BF",
+          "foreground": "#0F172A"
+        },
+        "accent": {
+          "default": "#6366F1",
+          "foreground": "#FFFFFF"
+        },
+        "text": {
+          "primary": "#F8FAFC",
+          "secondary": "#94A3B8",
+          "muted": "#64748B"
+        },
+        "border": {
+          "default": "rgba(255, 255, 255, 0.08)",
+          "active": "rgba(255, 255, 255, 0.15)"
+        },
+        "status": {
+          "success": "#10B981",
+          "warning": "#F59E0B",
+          "error": "#EF4444",
+          "info": "#3B82F6"
+        }
+      },
+      "gradients": {
+        "hero_glow": "radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(11, 15, 23, 0) 70%)",
+        "card_surface": "linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%)"
+      }
+    },
+    "layout": {
+      "spacing": {
+        "container_padding": "p-6 md:p-12 lg:p-24",
+        "section_gap": "gap-16 md:gap-32",
+        "element_gap": "gap-4 md:gap-8"
+      },
+      "radius": {
+        "default": "rounded-xl",
+        "search_bar": "rounded-[34px]",
+        "card": "rounded-2xl",
+        "button": "rounded-full"
+      },
+      "grids": {
+        "bento_marketing": "grid grid-cols-1 md:grid-cols-12 gap-6",
+        "dashboard_dense": "grid grid-cols-1 md:grid-cols-4 gap-4"
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all duration-300",
+        "secondary": "bg-secondary/10 text-secondary hover:bg-secondary/20 border border-secondary/20",
+        "ghost": "hover:bg-white/5 text-text-secondary hover:text-text-primary"
+      },
+      "cards": {
+        "glass": "bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl",
+        "solid": "bg-background-paper border border-border-default"
+      },
+      "inputs": {
+        "search_hero": "bg-[#F1F5F9] text-slate-900 placeholder:text-slate-500 border-none shadow-lg h-14 px-8 text-lg focus-visible:ring-2 focus-visible:ring-primary/50"
+      }
+    },
+    "visual_enhancers": {
+      "textures": {
+        "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")"
+      },
+      "shadows": {
+        "glow": "0 0 40px -10px rgba(56, 189, 248, 0.3)",
+        "glass": "0 8px 32px 0 rgba(0, 0, 0, 0.36)"
+      }
+    },
+    "motion": {
+      "transitions": {
+        "default": "transition-all duration-300 ease-out",
+        "slow": "transition-all duration-700 ease-in-out"
+      },
+      "animations": {
+        "fade_in": "animate-in fade-in duration-700",
+        "slide_up": "animate-in slide-in-from-bottom-8 duration-700"
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_background": {
+        "url": "https://images.unsplash.com/photo-1607893326676-5c46ba36251f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHxkYXJrJTIwYWJzdHJhY3QlMjBtZWRpY2FsJTIwdGV4dHVyZSUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcwNjU5MzYwfDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Abstract Dark Medical Texture",
+        "usage": "Hero Section Background with Overlay"
+      },
+      "medical_abstract": {
+        "url": "https://images.unsplash.com/photo-1582035100994-9ddfc34b1dae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwzfHxkYXJrJTIwYWJzdHJhY3QlMjBtZWRpY2FsJTIwdGV4dHVyZSUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcwNjU5MzYwfDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Black and White Abstract Art",
+        "usage": "Subtle texture for cards or footer"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px, rounded caps"
+    }
+  },
+  "instructions_to_main_agent": {
+    "general": [
+      "Implement the 'Joan' font for all Headings (h1-h6) and the 'Manrope' font for body text.",
+      "Ensure the 'Medcures' logo is text-based (Italic, White) if no image is provided, placed on the dark textured background.",
+      "The Search Bar in the Hero section MUST be Light Grey (#F1F5F9) with 34px border-radius (rounded-[34px]).",
+      "Use the 'Dark Medical' theme: Deep charcoal backgrounds, white text, and subtle blue/teal accents.",
+      "Do NOT use gradients for the main background; use the provided image texture with a dark overlay.",
+      "For the Chat Interface: Use a Sidebar (Darker) + Main Chat Area (Dark). User bubbles: Primary Color (Blue/Teal). AI bubbles: Glassmorphism (White/5).",
+      "Ensure all interactive elements have a 'data-testid' attribute."
+    ],
+    "layout_specifics": {
+      "landing_page": "Hero section with centered search bar, 'Joan' headline, and the dark abstract background.",
+      "chat_interface": "Sidebar for history, Main area for chat. Input area fixed at bottom. Disclaimer popup on first load.",
+      "auth_pages": "Simple, centered cards with glassmorphism effect on the dark background."
+    },
+    "universal_guidelines": [
+      "Avoid 'AI Slop': No generic centered layouts without tension. Use asymmetry where possible (except the search bar which is requested centered).",
+      "Micro-interactions: Add hover states to all buttons and links.",
+      "Accessibility: Ensure contrast ratios are met (White text on Dark bg is usually safe, but check blue accents).",
+      "Use 'sonner' for toast notifications."
+    ]
+  }
+}

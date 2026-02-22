@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Joan&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --background: 11 15 23;
+  --foreground: 248 250 252;
+  --card: 21 26 37;
+  --card-foreground: 248 250 252;
+  --popover: 21 26 37;
+  --popover-foreground: 248 250 252;
+  --primary: 56 189 248;
+  --primary-foreground: 15 23 42;
+  --secondary: 45 212 191;
+  --secondary-foreground: 15 23 42;
+  --muted: 100 116 139;
+  --muted-foreground: 148 163 184;
+  --accent: 99 102 241;
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 248 250 252;
+  --border: 255 255 255 / 0.08;
+  --input: 255 255 255 / 0.08;
+  --ring: 56 189 248;
+  --radius: 1rem;
+}
+
+* {
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 0.08));
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: 'Manrope', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Joan', serif;
+  font-weight: 400;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow-effect {
+  box-shadow: 0 0 40px -10px rgba(56, 189, 248, 0.3);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
