@@ -35,7 +35,7 @@ JWT_ALGORITHM = "HS256"
 FOUNDER_EMAIL = os.environ['FOUNDER_EMAIL']
 
 # Load pharmacopoeia data
-with open(ROOT_DIR / 'pharmacopoeia.json', 'r') as f:
+with open(ROOT_DIR / 'pharmacopoeia.json', 'r', encoding='utf-8-sig') as f:
     data = json.load(f)
     if isinstance(data, dict) and "PharmacopoeiaDrugs" in data:
         drugs = data.get("PharmacopoeiaDrugs", [])
