@@ -6,7 +6,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [sessionId] = useState('guest-' + Date.now());
-  const [token] = useState(localStorage.getItem('medcures_token'));
+  const [token, setToken] = useState(localStorage.getItem('medcures_token'));
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -76,12 +76,7 @@ function App() {
                   type="text"
                   placeholder="Ask about any medication... (e.g., Aspirin, Paracetamol)"
                   className="w-full h-14 pl-6 pr-6 text-lg bg-white text-gray-900 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      setInput(e.target.value);
-                      setPage('chat');
-                    }
-                  }}
+                  onKeyPress={(e) => e.key === 'Enter' && (setInput(e.target.value), setPage('chat'))}
                 />
               </div>
             </div>
