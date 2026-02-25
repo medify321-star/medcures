@@ -32,82 +32,259 @@ function App() {
     minHeight: '100vh',
     backgroundColor: '#0B0F17',
     color: 'white',
-    fontFamily: 'Arial, sans-serif',
-    backgroundImage: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(11, 15, 23, 0) 50%)',
-    position: 'relative'
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    position: 'relative',
+    overflow: 'hidden'
   };
 
   if (page === 'landing') {
     return (
       <div style={bgStyle}>
-        {/* Gradient Background */}
+        {/* Background Image */}
         <div style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%)',
-          pointerEvents: 'none'
+          inset: 0,
+          opacity: 0.3,
+          backgroundImage: 'url(https://images.unsplash.com/photo-1607893326676-5c46ba36251f?crop=entropy&cs=srgb&fm=jpg&q=85)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}></div>
+
+        {/* Gradient Overlay */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(11, 15, 23, 0) 70%)'
         }}></div>
 
         {/* Content */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 10 }}>
           {/* Header */}
           <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 50px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-            <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#38BDF8' }}>Medcures</div>
+            <div style={{ fontSize: '28px', fontWeight: '600', letterSpacing: '-0.5px', background: 'linear-gradient(135deg, #38BDF8, #2DD4BF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Medcures</div>
             <div style={{ display: 'flex', gap: '15px' }}>
-              <button onClick={() => setPage('login')} style={{ padding: '10px 20px', background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '16px' }}>Login</button>
-              <button onClick={() => setPage('signup')} style={{ padding: '10px 30px', background: '#38BDF8', color: '#0B0F17', border: 'none', borderRadius: '20px', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}>Sign Up</button>
+              <button 
+                onClick={() => setPage('login')} 
+                style={{ 
+                  padding: '10px 20px', 
+                  background: 'none', 
+                  border: 'none', 
+                  color: '#b0b0b0', 
+                  cursor: 'pointer', 
+                  fontSize: '15px',
+                  transition: 'color 0.3s'
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'white'}
+                onMouseLeave={(e) => e.target.style.color = '#b0b0b0'}
+              >
+                Login
+              </button>
+              <button 
+                onClick={() => setPage('signup')} 
+                style={{ 
+                  padding: '10px 24px', 
+                  background: '#38BDF8', 
+                  color: '#0B0F17', 
+                  border: 'none', 
+                  borderRadius: '20px', 
+                  cursor: 'pointer', 
+                  fontSize: '15px', 
+                  fontWeight: '600',
+                  boxShadow: '0 0 20px rgba(56, 189, 248, 0.3)',
+                  transition: 'all 0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#0EA5E9';
+                  e.target.style.boxShadow = '0 0 30px rgba(56, 189, 248, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#38BDF8';
+                  e.target.style.boxShadow = '0 0 20px rgba(56, 189, 248, 0.3)';
+                }}
+              >
+                Sign Up
+              </button>
             </div>
           </header>
 
           {/* Main Content */}
-          <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 200px)', textAlign: 'center', padding: '30px' }}>
-            <h1 style={{ fontSize: '56px', marginBottom: '20px', lineHeight: '1.2', fontWeight: 'normal' }}>
-              Your Trusted Medical Information<br /><span style={{ color: '#38BDF8' }}>Companion</span>
+          <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 200px)', textAlign: 'center', padding: '40px 30px', maxWidth: '1200px', margin: '0 auto' }}>
+            <h1 style={{ fontSize: '60px', lineHeight: '1.2', fontWeight: '400', letterSpacing: '-1px', marginBottom: '25px', maxWidth: '900px' }}>
+              Your Trusted Medical Information
+              <br />
+              <span style={{ color: '#38BDF8', fontWeight: '500' }}>Companion</span>
             </h1>
-            <p style={{ fontSize: '18px', color: '#aaa', marginBottom: '40px', maxWidth: '600px' }}>
+            
+            <p style={{ fontSize: '18px', color: '#94a3b8', marginBottom: '45px', maxWidth: '700px', lineHeight: '1.6' }}>
               Get verified pharmaceutical information from trusted sources. Educational guidance for informed healthcare decisions.
             </p>
 
-            {/* Search Bar */}
-            <div style={{ width: '100%', maxWidth: '600px', marginBottom: '50px' }}>
-              <input
-                type="text"
-                placeholder="Ask about any medication... (e.g., Aspirin)"
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter' && e.target.value.trim()) {
-                    setInput(e.target.value);
-                    setPage('chat');
-                  }
-                }}
-                style={{ width: '100%', padding: '15px', fontSize: '16px', borderRadius: '30px', border: 'none', backgroundColor: 'white', color: '#333' }}
-              />
+            {/* Search Bar with Icon */}
+            <div style={{ width: '100%', maxWidth: '650px', marginBottom: '60px' }}>
+              <div style={{ position: 'relative' }}>
+                <span style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', fontSize: '18px' }}>🔍</span>
+                <input
+                  type="text"
+                  placeholder="Ask about any medication... (e.g., Aspirin, Paracetamol)"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && e.target.value.trim()) {
+                      setInput(e.target.value);
+                      setPage('chat');
+                    }
+                  }}
+                  style={{ 
+                    width: '100%', 
+                    padding: '16px 20px 16px 50px', 
+                    fontSize: '16px', 
+                    borderRadius: '34px', 
+                    border: 'none', 
+                    backgroundColor: '#F1F5F9', 
+                    color: '#1e293b',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                    outline: 'none'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.boxShadow = '0 8px 32px rgba(56, 189, 248, 0.4)';
+                    e.target.style.borderColor = '#38BDF8';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
+                  }}
+                />
+              </div>
             </div>
 
             {/* Feature Cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', maxWidth: '1000px', width: '100%' }}>
-              <div style={{ padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '15px', backdropFilter: 'blur(8px)', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
-                <h3 style={{ marginBottom: '10px', color: '#38BDF8' }}>Verified Sources</h3>
-                <p style={{ fontSize: '14px', color: '#999' }}>Information from British Pharmacopoeia and FDA databases</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px', maxWidth: '1100px', width: '100%', marginTop: '20px' }}>
+              <div 
+                style={{ 
+                  padding: '30px', 
+                  background: 'rgba(255, 255, 255, 0.08)', 
+                  borderRadius: '20px', 
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  transition: 'all 0.3s',
+                  textAlign: 'left'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                }}
+              >
+                <div style={{ fontSize: '28px', marginBottom: '12px' }}>🛡️</div>
+                <h3 style={{ marginBottom: '12px', color: '#38BDF8', fontSize: '18px', fontWeight: '600' }}>Verified Sources</h3>
+                <p style={{ fontSize: '14px', color: '#cbd5e1', lineHeight: '1.6' }}>Information from British Pharmacopoeia, USP, and FDA databases</p>
               </div>
-              <div style={{ padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '15px', backdropFilter: 'blur(8px)', border: '1px solid rgba(45, 212, 191, 0.2)' }}>
-                <h3 style={{ marginBottom: '10px', color: '#2DD4BF' }}>Educational Purpose</h3>
-                <p style={{ fontSize: '14px', color: '#999' }}>Professional medical information for learning</p>
+
+              <div 
+                style={{ 
+                  padding: '30px', 
+                  background: 'rgba(255, 255, 255, 0.08)', 
+                  borderRadius: '20px', 
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(45, 212, 191, 0.3)',
+                  transition: 'all 0.3s',
+                  textAlign: 'left'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(45, 212, 191, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(45, 212, 191, 0.3)';
+                }}
+              >
+                <div style={{ fontSize: '28px', marginBottom: '12px' }}>📚</div>
+                <h3 style={{ marginBottom: '12px', color: '#2DD4BF', fontSize: '18px', fontWeight: '600' }}>Educational Purpose</h3>
+                <p style={{ fontSize: '14px', color: '#cbd5e1', lineHeight: '1.6' }}>Professional medical information for learning and reference</p>
               </div>
-              <div style={{ padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '15px', backdropFilter: 'blur(8px)', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
-                <h3 style={{ marginBottom: '10px', color: '#6366F1' }}>AI-Powered</h3>
-                <p style={{ fontSize: '14px', color: '#999' }}>Advanced analysis and insights</p>
+
+              <div 
+                style={{ 
+                  padding: '30px', 
+                  background: 'rgba(255, 255, 255, 0.08)', 
+                  borderRadius: '20px', 
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(99, 102, 241, 0.3)',
+                  transition: 'all 0.3s',
+                  textAlign: 'left'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+                }}
+              >
+                <div style={{ fontSize: '28px', marginBottom: '12px' }}>✨</div>
+                <h3 style={{ marginBottom: '12px', color: '#6366F1', fontSize: '18px', fontWeight: '600' }}>AI-Powered</h3>
+                <p style={{ fontSize: '14px', color: '#cbd5e1', lineHeight: '1.6' }}>Smart responses with proper citations and disclaimers</p>
               </div>
             </div>
           </main>
 
           {/* Footer */}
-          <footer style={{ display: 'flex', justifyContent: 'center', gap: '30px', padding: '30px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', color: '#888', fontSize: '14px' }}>
-            <button onClick={() => setPage('privacy')} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}>Privacy Policy</button>
-            <button onClick={() => setPage('terms')} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}>Terms & Conditions</button>
-            <button onClick={() => setPage('disclaimer')} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}>Disclaimer</button>
+          <footer style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '30px', 
+            padding: '30px 20px', 
+            borderTop: '1px solid rgba(255, 255, 255, 0.05)', 
+            color: '#64748b', 
+            fontSize: '14px',
+            flexWrap: 'wrap'
+          }}>
+            <button 
+              onClick={() => setPage('privacy')} 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#64748b', 
+                cursor: 'pointer',
+                transition: 'color 0.3s'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#38BDF8'}
+              onMouseLeave={(e) => e.target.style.color = '#64748b'}
+            >
+              Privacy Policy
+            </button>
+            <span>·</span>
+            <button 
+              onClick={() => setPage('terms')} 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#64748b', 
+                cursor: 'pointer',
+                transition: 'color 0.3s'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#38BDF8'}
+              onMouseLeave={(e) => e.target.style.color = '#64748b'}
+            >
+              Terms & Conditions
+            </button>
+            <span>·</span>
+            <button 
+              onClick={() => setPage('disclaimer')} 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#64748b', 
+                cursor: 'pointer',
+                transition: 'color 0.3s'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#38BDF8'}
+              onMouseLeave={(e) => e.target.style.color = '#64748b'}
+            >
+              Disclaimer
+            </button>
           </footer>
         </div>
       </div>
@@ -117,23 +294,35 @@ function App() {
   if (page === 'chat') {
     return (
       <div style={{ ...bgStyle, display: 'flex', flexDirection: 'column' }}>
-        <header style={{ padding: '20px 50px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <button onClick={() => setPage('landing')} style={{ background: 'none', border: 'none', color: '#38BDF8', cursor: 'pointer', fontSize: '16px' }}>← Back</button>
-          <h1>Chat</h1>
+        <header style={{ padding: '20px 40px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(11, 15, 23, 0.8)', backdropFilter: 'blur(6px)' }}>
+          <button 
+            onClick={() => setPage('landing')} 
+            style={{ background: 'none', border: 'none', color: '#38BDF8', cursor: 'pointer', fontSize: '16px', fontWeight: '500' }}
+          >
+            ← Back to Home
+          </button>
+          <h2 style={{ color: '#38BDF8', fontSize: '18px', fontWeight: '600' }}>Medical Information Chat</h2>
           <div></div>
         </header>
 
-        <div style={{ flex: '1', overflowY: 'auto', padding: '30px 50px' }}>
-          {messages.length === 0 && <p style={{ textAlign: 'center', color: '#999' }}>Ask about any medication...</p>}
+        <div style={{ flex: '1', overflowY: 'auto', padding: '30px 40px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {messages.length === 0 && (
+            <div style={{ textAlign: 'center', color: '#64748b', marginTop: '60px', fontSize: '16px' }}>
+              <p style={{ fontSize: '24px', marginBottom: '10px' }}>💬</p>
+              <p>Ask about any medication...</p>
+            </div>
+          )}
           {messages.map((msg, i) => (
-            <div key={i} style={{ marginBottom: '15px', textAlign: msg.role === 'user' ? 'right' : 'left' }}>
+            <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
               <div style={{
-                display: 'inline-block',
-                maxWidth: '70%',
-                padding: '12px 18px',
-                borderRadius: '12px',
+                maxWidth: '65%',
+                padding: '14px 18px',
+                borderRadius: '16px',
                 backgroundColor: msg.role === 'user' ? '#38BDF8' : 'rgba(255, 255, 255, 0.1)',
-                color: msg.role === 'user' ? '#0B0F17' : 'white'
+                color: msg.role === 'user' ? '#0B0F17' : '#e2e8f0',
+                lineHeight: '1.5',
+                wordWrap: 'break-word',
+                backdropFilter: msg.role === 'assistant' ? 'blur(4px)' : 'none'
               }}>
                 {msg.content}
               </div>
@@ -141,21 +330,58 @@ function App() {
           ))}
         </div>
 
-        <div style={{ padding: '20px 50px', borderTop: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', gap: '10px', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask about medication..."
-            style={{ flex: '1', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.2)', backgroundColor: 'rgba(255, 255, 255, 0.05)', color: 'white', fontSize: '14px' }}
-          />
-          <button
-            onClick={sendMessage}
-            style={{ padding: '12px 25px', background: '#38BDF8', color: '#0B0F17', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
-          >
-            Send
-          </button>
+        <div style={{ padding: '20px 40px', borderTop: '1px solid rgba(255, 255, 255, 0.1)', background: 'rgba(11, 15, 23, 0.9)', backdropFilter: 'blur(6px)' }}>
+          <div style={{ display: 'flex', gap: '12px', maxWidth: '1000px', margin: '0 auto' }}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+              placeholder="Ask about medication..."
+              style={{ 
+                flex: '1', 
+                padding: '12px 16px', 
+                borderRadius: '20px', 
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                color: 'white', 
+                fontSize: '14px',
+                outline: 'none'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(56, 189, 248, 0.6)';
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+              }}
+            />
+            <button
+              onClick={sendMessage}
+              style={{ 
+                padding: '12px 28px', 
+                background: '#38BDF8', 
+                color: '#0B0F17', 
+                border: 'none', 
+                borderRadius: '20px', 
+                cursor: 'pointer', 
+                fontWeight: '600',
+                transition: 'all 0.3s',
+                boxShadow: '0 0 16px rgba(56, 189, 248, 0.2)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#0EA5E9';
+                e.target.style.boxShadow = '0 0 24px rgba(56, 189, 248, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = '#38BDF8';
+                e.target.style.boxShadow = '0 0 16px rgba(56, 189, 248, 0.2)';
+              }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     );
