@@ -390,27 +390,116 @@ function App() {
   if (page === 'privacy') {
     return (
       <div style={bgStyle}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 50px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <button onClick={() => setPage('landing')} style={{ background: 'none', border: 'none', color: '#38BDF8', cursor: 'pointer', fontSize: '16px' }}>← Back</button>
-          <h1>Privacy Policy</h1>
-          <div></div>
-        </header>
-        <main style={{ maxWidth: '800px', margin: '0 auto', padding: '40px', lineHeight: '1.8', color: '#ccc' }}>
-          <h2 style={{ color: '#38BDF8', marginBottom: '20px' }}>Privacy Policy</h2>
-          <p>At Medcures, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and protect information when you use our platform.</p>
-          
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Information We Collect</h3>
-          <p>We collect information you provide directly, such as email address and usage data. We also collect information about how you interact with our service.</p>
+        {/* Background Image */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: 0.1,
+          backgroundImage: 'url(https://images.unsplash.com/photo-1607893326676-5c46ba36251f?crop=entropy&cs=srgb&fm=jpg&q=85)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}></div>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>How We Use Your Information</h3>
-          <p>We use your information to provide and improve our services, communicate with you, and comply with legal obligations.</p>
+        <div style={{ position: 'relative', zIndex: 10 }}>
+          <header style={{ padding: '20px 40px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <button
+              onClick={() => setPage('landing')}
+              style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.3s' }}
+              onMouseEnter={(e) => e.target.style.color = '#38BDF8'}
+              onMouseLeave={(e) => e.target.style.color = '#cbd5e1'}
+            >
+              ⬅ Back to Home
+            </button>
+          </header>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Data Security</h3>
-          <p>We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.</p>
+          <div style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto', padding: '40px 20px' }}>
+            <div style={{ maxWidth: '900px', margin: '0 auto', color: 'white' }}>
+              <h1 style={{ fontSize: '36px', fontWeight: '400', marginBottom: '12px' }}>Privacy Policy</h1>
+              <p style={{ color: '#94a3b8', marginBottom: '40px', fontSize: '14px' }}>Last updated: January 2026</p>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Contact Us</h3>
-          <p>If you have questions about this Privacy Policy, please contact us at privacy@medcures.com</p>
-        </main>
+              {/* Section 1 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>1. Information We Collect</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  We collect information that you provide directly to us, including:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Account information (email, name, password)</li>
+                  <li>Chat messages and queries</li>
+                  <li>Feedback and ratings</li>
+                  <li>Usage data and preferences</li>
+                </ul>
+              </section>
+
+              {/* Section 2 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>2. How We Use Your Information</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  We use the information we collect to:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Provide and improve our services</li>
+                  <li>Respond to your queries with relevant medical information</li>
+                  <li>Send important updates and notifications</li>
+                  <li>Analyze usage patterns to enhance user experience</li>
+                </ul>
+              </section>
+
+              {/* Section 3 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>3. Data Storage and Security</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  We implement appropriate security measures to protect your personal information:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Encrypted storage of chat history (last 5 chats per user)</li>
+                  <li>Secure password hashing</li>
+                  <li>Regular security audits</li>
+                  <li>Limited data retention policies</li>
+                </ul>
+              </section>
+
+              {/* Section 4 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>4. Data Sharing</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  We do NOT sell, trade, or rent your personal information to third parties. Feedback data is accessible only to authorized administrators for quality improvement purposes.
+                </p>
+              </section>
+
+              {/* Section 5 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>5. Your Rights (GDPR Compliance)</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  You have the right to:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Access your personal data</li>
+                  <li>Request correction of inaccurate data</li>
+                  <li>Request deletion of your account and data</li>
+                  <li>Object to data processing</li>
+                  <li>Data portability</li>
+                </ul>
+              </section>
+
+              {/* Section 6 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>6. Medical Information Disclaimer</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  We do NOT store personal health information. All information provided is for educational purposes only. We are not responsible for any medical decisions made based on information from our platform.
+                </p>
+              </section>
+
+              {/* Section 7 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>7. Contact Us</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  For privacy-related questions or to exercise your rights, contact us at: <strong>medcures15@gmail.com</strong>
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -418,27 +507,144 @@ function App() {
   if (page === 'terms') {
     return (
       <div style={bgStyle}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 50px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <button onClick={() => setPage('landing')} style={{ background: 'none', border: 'none', color: '#38BDF8', cursor: 'pointer', fontSize: '16px' }}>← Back</button>
-          <h1>Terms & Conditions</h1>
-          <div></div>
-        </header>
-        <main style={{ maxWidth: '800px', margin: '0 auto', padding: '40px', lineHeight: '1.8', color: '#ccc' }}>
-          <h2 style={{ color: '#38BDF8', marginBottom: '20px' }}>Terms & Conditions</h2>
-          <p>Welcome to Medcures. These terms and conditions govern your use of our platform and services.</p>
-          
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Use License</h3>
-          <p>Permission is granted to temporarily download one copy of the materials (information or software) on Medcures for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.</p>
+        {/* Background Image */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: 0.1,
+          backgroundImage: 'url(https://images.unsplash.com/photo-1607893326676-5c46ba36251f?crop=entropy&cs=srgb&fm=jpg&q=85)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}></div>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Disclaimer</h3>
-          <p>The materials on Medcures are provided on an 'as is' basis. Medcures makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose.</p>
+        <div style={{ position: 'relative', zIndex: 10 }}>
+          <header style={{ padding: '20px 40px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <button
+              onClick={() => setPage('landing')}
+              style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.3s' }}
+              onMouseEnter={(e) => e.target.style.color = '#38BDF8'}
+              onMouseLeave={(e) => e.target.style.color = '#cbd5e1'}
+            >
+              ⬅ Back to Home
+            </button>
+          </header>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Limitations</h3>
-          <p>In no event shall Medcures or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Medcures.</p>
+          <div style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto', padding: '40px 20px' }}>
+            <div style={{ maxWidth: '900px', margin: '0 auto', color: 'white' }}>
+              <h1 style={{ fontSize: '36px', fontWeight: '400', marginBottom: '12px' }}>Terms & Conditions</h1>
+              <p style={{ color: '#94a3b8', marginBottom: '40px', fontSize: '14px' }}>Last updated: January 2026</p>
 
-          <h3 style={{ color: '#38BDF8', marginTop: '30px', marginBottom: '15px' }}>Modifications</h3>
-          <p>Medcures may revise these terms and conditions for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms and conditions.</p>
-        </main>
+              {/* Section 1 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>1. Acceptance of Terms</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  By accessing and using Medcures, you accept and agree to be bound by these Terms and Conditions. If you do not agree, please discontinue use immediately.
+                </p>
+              </section>
+
+              {/* Section 2 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>2. Educational Purpose Only</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  Medcures provides pharmaceutical information for <strong>EDUCATIONAL PURPOSES ONLY</strong>. This platform:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Does NOT provide medical advice, diagnosis, or treatment</li>
+                  <li>Does NOT replace professional medical consultation</li>
+                  <li>Should NOT be used for self-diagnosis or self-medication</li>
+                  <li>Is NOT a substitute for licensed healthcare professionals</li>
+                </ul>
+              </section>
+
+              {/* Section 3 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>3. Medical Disclaimer</h2>
+                <p style={{ color: '#FF6B6B', fontWeight: 'bold', marginBottom: '12px' }}>
+                  ⚠️ <strong>IMPORTANT:</strong> Always consult with a qualified healthcare professional before taking any medication or making health-related decisions. Individual medical conditions vary, and professional evaluation is essential.
+                </p>
+              </section>
+
+              {/* Section 4 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>4. User Responsibilities</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  You agree to:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Use the platform responsibly and ethically</li>
+                  <li>Not share false or misleading information</li>
+                  <li>Maintain confidentiality of your account credentials</li>
+                  <li>Not attempt to compromise platform security</li>
+                  <li>Respect intellectual property rights</li>
+                </ul>
+              </section>
+
+              {/* Section 5 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>5. Usage Limits</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  Guest users are limited to 3 chat interactions. Registered users have extended access. Premium membership may be required for unlimited usage.
+                </p>
+              </section>
+
+              {/* Section 6 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>6. Information Accuracy</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  While we strive to provide accurate information from verified pharmacopoeia sources (British Pharmacopoeia, USP, FDA), we cannot guarantee:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>100% accuracy or completeness of information</li>
+                  <li>Real-time updates for all medications</li>
+                  <li>Suitability for specific individual cases</li>
+                </ul>
+              </section>
+
+              {/* Section 7 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>7. Limitation of Liability</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '12px' }}>
+                  Medcures and its founders are NOT liable for:
+                </p>
+                <ul style={{ listStyle: 'disc', marginLeft: '24px', color: '#cbd5e1', lineHeight: '1.8' }}>
+                  <li>Any medical decisions made based on platform information</li>
+                  <li>Adverse effects from medication use</li>
+                  <li>Errors or omissions in information provided</li>
+                  <li>Damages resulting from platform use or inability to use</li>
+                </ul>
+              </section>
+
+              {/* Section 8 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>8. Intellectual Property</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  All content, design, and technology on Medcures are protected by intellectual property laws. Unauthorized reproduction or distribution is prohibited.
+                </p>
+              </section>
+
+              {/* Section 9 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>9. Modifications</h2>
+                <p style={{ color: '#cbd5e1' }}>
+                  We reserve the right to modify these terms at any time. Continued use after changes constitutes acceptance of modified terms.
+                </p>
+              </section>
+
+              {/* Section 10 */}
+              <section style={{ marginBottom: '40px', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '500', color: '#38BDF8', marginBottom: '16px' }}>10. Contact Information</h2>
+                <p style={{ color: '#cbd5e1', marginBottom: '20px' }}>
+                  For questions or concerns about these terms, contact us at: <strong>medcures15@gmail.com</strong>
+                </p>
+                <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.6' }}>
+                  <strong>Founders:</strong> Zainab Bohra & Shriya Soni<br />
+                  <strong>Sponsored by:</strong> U.S Ostwal Institute of Pharmacy<br />
+                  <strong>Co-founder:</strong> Ishika Chourdiya
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
