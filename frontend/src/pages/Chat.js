@@ -27,6 +27,10 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    console.log("🔍 Chat component mounted, showDisclaimer:", showDisclaimer);
+  }, []);
+
+  useEffect(() => {
     // Check if there's an initial query from landing page
     if (location.state?.initialQuery) {
       setInput(location.state.initialQuery);
@@ -123,33 +127,58 @@ const Chat = () => {
   };
 
   return (
-    <div className="h-screen bg-[#0B0F17] flex">
-      {/* Disclaimer Dialog */}
-      <Dialog open={showDisclaimer} onOpenChange={setShowDisclaimer}>
-        <DialogContent className="bg-[#151A25] border-white/10 text-white" data-testid="disclaimer-dialog">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-normal text-[#38BDF8]">Important Medical Disclaimer</DialogTitle>
-            <DialogDescription className="text-slate-300 space-y-4 pt-4">
-              <p className="text-base leading-relaxed">
-                ⚠️ <strong>Educational Purpose Only:</strong> The information provided by Medcures is for educational and informational purposes only.
-              </p>
-              <p className="text-base leading-relaxed">
-                This platform does NOT provide medical advice, diagnosis, or treatment recommendations. Always consult with a qualified healthcare professional before taking any medication or making health-related decisions.
-              </p>
-              <p className="text-base leading-relaxed">
-                All information is sourced from verified pharmacopoeia databases, but individual medical conditions vary. Professional medical consultation is essential.
-              </p>
-            </DialogDescription>
-          </DialogHeader>
-          <Button
-            onClick={() => setShowDisclaimer(false)}
-            className="w-full bg-[#38BDF8] text-[#0F172A] hover:bg-[#0EA5E9] rounded-full"
-            data-testid="accept-disclaimer-button"
-          >
-            I Understand
-          </Button>
-        </DialogContent>
-      </Dialog>
+    <>
+      {showDisclaimer && (
+        <div style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          width: '100%',
+          height: '100%',
+          backgroundColor: '#000',
+          zIndex: '99999',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: '#151A25',
+            color: 'white',
+            padding: '40px',
+            borderRadius: '12px',
+            maxWidth: '600px',
+            border: '1px solid #38BDF8'
+          }}>
+            <h1 style={{ color: '#38BDF8', fontSize: '32px', marginBottom: '20px' }}>⚠️ MEDICAL DISCLAIMER</h1>
+            <div style={{ fontSize: '16px', marginBottom: '20px', lineHeight: '1.8' }}>
+              <p><strong>Educational Purpose Only:</strong> The information provided by Medcures is for educational purposes only.</p>
+              <p style={{ marginTop: '15px' }}>This platform does NOT provide medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before taking any medication.</p>
+              <p style={{ marginTop: '15px' }}>Professional medical consultation is essential.</p>
+            </div>
+            <button 
+              onClick={() => {
+                console.log('User accepted disclaimer');
+                setShowDisclaimer(false);
+              }}
+              style={{
+                backgroundColor: '#38BDF8',
+                color: '#000',
+                padding: '12px 30px',
+                fontSize: '18px',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                width: '100%'
+              }}
+            >
+              I UNDERSTAND
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="h-screen bg-[#0B0F17] flex">
 
       {/* Signup Prompt Dialog */}
       <Dialog open={showSignupPrompt} onOpenChange={setShowSignupPrompt}>
@@ -348,7 +377,8 @@ const Chat = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

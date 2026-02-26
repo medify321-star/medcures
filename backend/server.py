@@ -15,24 +15,65 @@ import jwt
 import json
 from openai import OpenAI
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# Environment Configuration
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
+IS_PRODUCTION = ENVIRONMENT == 'production'
 
-# OpenRouter client
-openrouter_client = OpenAI(
-    api_key=os.environ['OPENROUTER_API_KEY'],
-    base_url="https://openrouter.ai/api/v1"
-)
+logger.info(f"🚀 Starting in {ENVIRONMENT} mode")
+
+# Validate required environment variables
+REQUIRED_ENV_VARS = ['JWT_SECRET_KEY', 'FOUNDER_EMAIL']
+missing_vars = [var for var in REQUIRED_ENV_VARS if not os.environ.get(var)]
+if missing_vars:
+    raise ValueError(f"❌ Missing required environment variables: {', '.join(missing_vars)}\n"
+                     f"   Please check your .env file and add the missing values.")
+
+# MongoDB connection (optional, with fallback to in-memory storage)
+try:
+    mongo_url = os.environ.get('MONGO_URL')
+    if mongo_url:
+        client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+        db = client[os.environ.get('DB_NAME', 'medcures_database')]
+        logger.info("✓ MongoDB connection configured")
+    else:
+        db = None
+        logger.warning("⚠ No MONGO_URL configured, using in-memory storage")
+except Exception as e:
+    db = None
+    logger.warning(f"⚠ MongoDB connection failed: {e}, using in-memory storage instead")
+
+# OpenRouter client (optional, for AI-powered responses)
+try:
+    openrouter_api_key = os.environ.get('OPENROUTER_API_KEY')
+    if openrouter_api_key:
+        openrouter_client = OpenAI(
+            api_key=openrouter_api_key,
+            base_url="https://openrouter.ai/api/v1",
+            timeout=10.0
+        )
+        logger.info("✓ OpenRouter client configured")
+    else:
+        openrouter_client = None
+        logger.warning("⚠ No OPENROUTER_API_KEY configured")
+except Exception as e:
+    openrouter_client = None
+    logger.warning(f"⚠ OpenRouter client initialization failed: {e}")
 
 # JWT settings
 JWT_SECRET = os.environ['JWT_SECRET_KEY']
 JWT_ALGORITHM = "HS256"
 FOUNDER_EMAIL = os.environ['FOUNDER_EMAIL']
+
+# Security: Validate JWT Secret in production
+if IS_PRODUCTION and len(JWT_SECRET) < 32:
+    raise ValueError("❌ JWT_SECRET_KEY must be at least 32 characters in production!")
 
 # Load pharmacopoeia data
 with open(ROOT_DIR / 'pharmacopoeia.json', 'r', encoding='utf-8-sig') as f:
@@ -63,6 +104,17 @@ security = HTTPBearer()
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
+
+# ===== GLOBAL ERROR HANDLER (prevents crashes) =====
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc):
+    """Catch ALL errors and return proper response instead of crashing"""
+    logger.error(f"❌ Unhandled error: {str(exc)}", exc_info=True)
+    return {
+        "error": "An unexpected error occurred",
+        "message": str(exc) if not IS_PRODUCTION else "Internal server error",
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
 
 # Models
 class UserCreate(BaseModel):
@@ -424,20 +476,56 @@ async def root():
 
 app.include_router(api_router)
 
+# Production-safe CORS configuration
+cors_origins = os.environ.get('CORS_ORIGINS', 'http://localhost:3000').split(',')
+cors_origins = [origin.strip() for origin in cors_origins]  # Remove whitespace
+
+# In production, only allow specific origins
+if IS_PRODUCTION and '*' in cors_origins:
+    logger.error("❌ CORS_ORIGINS=* is NOT allowed in production!")
+    logger.error("   Please set specific domains in .env: CORS_ORIGINS=https://yourdomain.com,https://app.yourdomain.com")
+    raise ValueError("Wildcard CORS origins not allowed in production")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
+    allow_origins=cors_origins,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    max_age=600,  # Cache preflight requests for 10 minutes
 )
+
+# Security Headers Middleware for production
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    response = await call_next(request)
+    
+    # Security headers - critical for production
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains" if IS_PRODUCTION else ""
+    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    
+    return response
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-logger = logging.getLogger(__name__)
+
+# ===== HEALTH CHECK ENDPOINT (for 24/7 reliability) =====
+@app.get("/health")
+async def health_check():
+    """Simple health check endpoint - returns OK if server is running"""
+    return {
+        "status": "ok",
+        "environment": ENVIRONMENT,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    if 'client' in globals() and client:
+        client.close()
