@@ -3,8 +3,5 @@
   "devCommand": "npm start",
   "installCommand": "npm install",
   "framework": "create-react-app",
-  "public": false,
-  "env": {
-    "REACT_APP_BACKEND_URL": "@backend_url"
-  }
+  "public": false
 }
