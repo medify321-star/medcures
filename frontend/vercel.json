@@ -6,13 +6,5 @@
   "public": false,
   "env": {
     "REACT_APP_BACKEND_URL": "@backend_url"
-  },
-  "envPrefix": "REACT_APP_",
-  "regions": ["iad1"],
-  "functions": {
-    "frontend/src/**/*.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
   }
 }
